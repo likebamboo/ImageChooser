@@ -1,5 +1,3 @@
-ImageChooser
-============
 ## 关于
 
 android本地图片展示、选择程序。界面参考微信。   
@@ -26,9 +24,9 @@ apk文件夹下附带安装包(未签名)。
 ![ImageChooser](https://raw.github.com/likebamboo/ImageChooser/master/screenCapture/device-2014-04-28-140943.png)
 
 ## 用到的第三方库
-* [UniversalImageLoader](https://github.com/nostra13/Android-Universal-Image-Loader) 目前最流行的图片异步加载库，配置强大，使用简单，绝对能满足你的各种需求！
+* [UniversalImageLoader](https://github.com/nostra13/Android-Universal-Image-Loader) 目前最流行的图片异步加载库，配置强大，使用简单，绝对能满足你的各种需求！【本程序中查看大图的时候用到】
 
-* [PhotoView](https://github.com/chrisbanes/PhotoView) 图片手势缩放库，很好用，也一直在用！
+* [PhotoView](https://github.com/chrisbanes/PhotoView) 图片手势缩放库，很好用，也一直在用！【本程序中查看大图的时候用到】
 
 ## Pull Requests
 I will gladly accept pull requests for fixes and feature enhancements but please do them in the develop branch
