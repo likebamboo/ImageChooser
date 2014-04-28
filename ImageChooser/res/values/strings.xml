@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">图片选择</string>
+    <string name="loaded_fail">加载失败，请点击屏幕重试</string>
+    <string name="donot_has_sdcard">暂无外部存储</string>
+    <string name="image_count">%1$s张</string>
+    <string name="no_images">您的手机中暂时没有图片哦~</string>
+
+</resources>

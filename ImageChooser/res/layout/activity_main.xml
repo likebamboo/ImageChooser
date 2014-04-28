@@ -1,0 +1,23 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity" >
+
+    <GridView
+        android:id="@+id/images_gv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:cacheColorHint="@android:color/transparent"
+        android:gravity="center"
+        android:horizontalSpacing="@dimen/spacing_medium"
+        android:listSelector="@android:color/transparent"
+        android:numColumns="2"
+        android:padding="@dimen/padding_small"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="@dimen/spacing_medium" >
+    </GridView>
+
+    <include layout="@layout/loading_layout" />
+
+</merge>

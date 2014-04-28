@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.likebamboo.imagechooser.widget.LoadingLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/loading_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:visibility="gone" >
+
+    <ProgressBar
+        android:id="@+id/loading_pb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:id="@+id/loading_fail_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <TextView
+            android:id="@+id/loading_fail_tv"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="10dip"
+            android:gravity="center"
+            android:lineSpacingExtra="10dp"
+            android:text="@string/loaded_fail"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+</com.likebamboo.imagechooser.widget.LoadingLayout>

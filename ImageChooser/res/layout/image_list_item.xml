@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
+
+    <com.likebamboo.imagechooser.widget.MyImageView
+        android:id="@+id/list_item_iv"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/group_list_item_image_heght"
+        android:contentDescription="@string/app_name"
+        android:scaleType="centerCrop" />
+
+    <View
+        android:id="@+id/list_item_cb_click_area"
+        android:layout_width="45.0dip"
+        android:layout_height="45.0dip"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true" />
+
+    <CheckBox
+        android:id="@+id/list_item_cb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@id/list_item_iv"
+        android:layout_alignTop="@id/list_item_iv"
+        android:button="@drawable/check_box_selector"
+        android:clickable="false"
+        android:focusable="false" />
+
+</RelativeLayout>

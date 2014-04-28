@@ -1,0 +1,22 @@
+<resources>
+
+    <!-- padding -->
+    <dimen name="padding_small">3dip</dimen>
+    <dimen name="padding_medium">5dip</dimen>
+    <dimen name="padding_large">8dip</dimen>
+    <dimen name="padding_xlarger">10dip</dimen>
+
+    <!-- spacing -->
+    <dimen name="spacing_small">3dip</dimen>
+    <dimen name="spacing_medium">5dip</dimen>
+    <dimen name="spacing_large">8dip</dimen>
+
+    <!-- margin -->
+
+
+    <!-- other -->
+    <dimen name="group_item_image_heght">150dip</dimen>
+    <dimen name="group_list_item_image_heght">100dip</dimen>
+    <dimen name="group_item_tips_heght">30dip</dimen>
+
+</resources>
