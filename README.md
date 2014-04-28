@@ -4,7 +4,7 @@ ImageChooser
 
 android本地图片展示、选择程序。界面参考微信。   
 在加载本地图片的速度上可媲美微信的图片选择，同时不会造成界面卡顿现象。   
-关于本程序的更多介绍，请移步[这里](http://likebamboo.github.io/)。
+关于本程序的更多介绍，请移步[这里](http://likebamboo.github.io/android/image/2014/04/28/image_chooser/)。
 
 ## 安装
 
@@ -12,9 +12,10 @@ apk文件夹下附带安装包(未签名)。
 
 ## 编译与运行
 
-本项目开发工具为Eclipse，你可以将ImageChooser文件夹下的项目导入到eclipse中编译并运行。   如果你使用ant来编译构建项目，你需要在ImageChooser文件夹下建立一个local.properties文件，该文件的内容为
+本项目开发工具为Eclipse，你可以将ImageChooser文件夹下的项目导入到eclipse中编译并运行。   
+如果你使用ant来编译构建项目，你需要在ImageChooser文件夹下建立一个local.properties文件，该文件的内容为
 
-    sdk.dir=【AndroidSDK所在的目录】   
+    sdk.dir=【Android SDK所在的目录】   
 
 之后，你可以在命令行中定位到ImageChooser文件夹，执行ant debug命令来编译该项目。
 
@@ -35,7 +36,7 @@ I will gladly accept pull requests for fixes and feature enhancements but please
 
 ## 关于我
 
-[请移步这里](http://likebamboo.github.io/about.html)
+请移步[这里](http://likebamboo.github.io/about.html)
 
 License
 ============
