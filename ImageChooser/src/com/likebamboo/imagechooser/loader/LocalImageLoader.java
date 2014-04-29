@@ -18,7 +18,7 @@ import android.os.Message;
 import android.support.v4.util.LruCache;
 import android.text.TextUtils;
 
-import com.likebamboo.imagechooser.ISApplication;
+import com.likebamboo.imagechooser.ICApplication;
 import com.likebamboo.imagechooser.utils.DeviceUtil;
 
 import java.io.File;
@@ -200,7 +200,7 @@ public class LocalImageLoader {
             public void run() {
                 Point size = request.getSize();
                 if (size == null || size.x == 0 || size.y == 0) {
-                    size = DeviceUtil.getDeviceSize(ISApplication.getContext());
+                    size = DeviceUtil.getDeviceSize(ICApplication.getContext());
                 }
                 // 先获取图片的缩略图
                 Bitmap mBitmap = decodeThumbBitmapForFile(request.getPath(), size.x, size.y, false);

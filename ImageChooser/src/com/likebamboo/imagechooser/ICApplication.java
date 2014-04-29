@@ -1,5 +1,5 @@
 /**
- * ISApplication.java
+ * ICApplication.java
  * ImageChooser
  * 
  * Created by likebamboo on 2014-4-22
@@ -22,7 +22,7 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
  * 
  * @author likebamboo
  */
-public class ISApplication extends Application {
+public class ICApplication extends Application {
     private static Context mContext;
 
     @Override
