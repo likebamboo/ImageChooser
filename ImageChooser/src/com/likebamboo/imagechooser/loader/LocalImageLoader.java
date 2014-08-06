@@ -23,6 +23,7 @@ import com.likebamboo.imagechooser.utils.DeviceUtil;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -73,6 +74,16 @@ public class LocalImageLoader {
      * 图片请求列表，用于调度
      */
     private ArrayList<ImageRequest> mImagesList = new ArrayList<ImageRequest>();
+
+    /**
+     * 处于正在请求状态的请求列表
+     */
+    private ArrayList<ImageRequest> mOnLoadingList = new ArrayList<ImageRequest>();
+
+    /**
+     * 是否正处于调度状态
+     */
+    private boolean onDispath = false;
 
     private LocalImageLoader() {
         // 获取应用程序的最大内存
@@ -137,7 +148,10 @@ public class LocalImageLoader {
         }
         mImagesList.remove(item);
         mImagesList.add(item);
-        dispatch();
+        // 如果当前不处于调度状态，开始调度
+        if (!onDispath) {
+            dispatch();
+        }
     }
 
     /**
@@ -152,6 +166,9 @@ public class LocalImageLoader {
         mImagesList.remove(item);
         if (mImagesList.size() > 0) {
             dispatch();
+        } else {
+            // 没有请求了，中止调度
+            onDispath = false;
         }
     }
 
@@ -159,6 +176,8 @@ public class LocalImageLoader {
      * 任务调度
      */
     private void dispatch() {
+        // 开始调度
+        onDispath = true;
         // 如果当前线程池已满 ,不再处理请求任务
         if (mThreadPool.getActiveCount() >= mThreadPool.getCorePoolSize()) {
             return;
@@ -182,31 +201,28 @@ public class LocalImageLoader {
      * 
      * @param request
      */
-    @SuppressLint("HandlerLeak")
     private void execute(final ImageRequest request) {
-        final Handler mHander = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
-                // 从调度列表中删除之
-                removeImageRequest(request);
-                // 回调
-                request.getCallBack().onImageLoader((Bitmap)msg.obj, request.getPath());
-            }
-        };
+        // 如果该图片正在请求，忽略之。
+        if (mOnLoadingList.contains(request)) {
+            return;
+        }
 
+        final ImageHandler handler = new ImageHandler(this, request);
         mThreadPool.execute(new Runnable() {
             @Override
             public void run() {
+                mOnLoadingList.add(request);
                 Point size = request.getSize();
                 if (size == null || size.x == 0 || size.y == 0) {
                     size = DeviceUtil.getDeviceSize(ICApplication.getContext());
                 }
                 // 先获取图片的缩略图
                 Bitmap mBitmap = decodeThumbBitmapForFile(request.getPath(), size.x, size.y, false);
-                Message msg = mHander.obtainMessage();
+                Message msg = handler.obtainMessage();
                 msg.obj = mBitmap;
-                mHander.sendMessage(msg);
+                handler.sendMessage(msg);
+
+                mOnLoadingList.remove(request);
                 // 将图片加入到内存缓存
                 addBitmapToMemoryCache(request.getPath(), mBitmap);
             }
@@ -347,6 +363,29 @@ public class LocalImageLoader {
             }
         }
         return inSampleSize;
+    }
+
+    private static class ImageHandler extends Handler {
+        private final WeakReference<LocalImageLoader> mActivity;
+
+        private final WeakReference<ImageRequest> mRequest;
+
+        public ImageHandler(LocalImageLoader activity, ImageRequest request) {
+            mActivity = new WeakReference<LocalImageLoader>(activity);
+            mRequest = new WeakReference<ImageRequest>(request);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            ImageRequest request = mRequest.get();
+            if (request != null) {
+                LocalImageLoader activity = mActivity.get();
+                if (activity != null) {
+                    activity.removeImageRequest(request);
+                }
+                request.getCallBack().onImageLoader((Bitmap)msg.obj, request.getPath());
+            }
+        }
     }
 
     /**
