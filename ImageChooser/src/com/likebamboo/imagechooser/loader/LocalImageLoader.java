@@ -146,8 +146,10 @@ public class LocalImageLoader {
         if (null == item || TextUtils.isEmpty(item.getPath())) {
             return;
         }
-        mImagesList.remove(item);
-        mImagesList.add(item);
+        synchronized (mImagesList) {
+            mImagesList.remove(item);
+            mImagesList.add(item);
+        }
         // 如果当前不处于调度状态，开始调度
         if (!onDispath) {
             dispatch();
@@ -163,12 +165,14 @@ public class LocalImageLoader {
         if (item == null || TextUtils.isEmpty(item.getPath())) {
             return;
         }
-        mImagesList.remove(item);
-        if (mImagesList.size() > 0) {
-            dispatch();
-        } else {
-            // 没有请求了，中止调度
-            onDispath = false;
+        synchronized (mImagesList) {
+            mImagesList.remove(item);
+            if (mImagesList.size() > 0) {
+                dispatch();
+            } else {
+                // 没有请求了，中止调度
+                onDispath = false;
+            }
         }
     }
 
@@ -185,13 +189,15 @@ public class LocalImageLoader {
         // 空闲线程的数量
         int spareThreads = mThreadPool.getCorePoolSize() - mThreadPool.getActiveCount();
         // 如果请求列表中数量小于空闲的线程数，顺序处理请求
-        if (mImagesList.size() < spareThreads) {
-            for (ImageRequest item : mImagesList) {
-                execute(item);
-            }
-        } else { // 否则从后面(优先级高)开始处理请求
-            for (int i = mImagesList.size() - 1; i >= mImagesList.size() - spareThreads; i--) {
-                execute(mImagesList.get(i));
+        synchronized (mImagesList) {
+            if (mImagesList.size() < spareThreads) {
+                for (ImageRequest item : mImagesList) {
+                    execute(item);
+                }
+            } else { // 否则从后面(优先级高)开始处理请求
+                for (int i = mImagesList.size() - 1; i >= mImagesList.size() - spareThreads; i--) {
+                    execute(mImagesList.get(i));
+                }
             }
         }
     }
