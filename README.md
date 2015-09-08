@@ -2,7 +2,7 @@
 
 android本地图片展示、选择程序。界面参考微信。   
 在加载本地图片的速度上可媲美微信的图片选择，不会造成界面卡顿现象。   
-想了解本程序开发过程中的一些想法与历程，请移步[这里](http://likebamboo.github.io/android/image/2014/04/28/image_chooser/)。  
+想了解本程序开发过程中的一些想法与历程，请移步[这里](http://likebamboo.github.io/android/2014/04/28/image_chooser/)。  
 本程序纯粹是根据个人的一些想法做的，可能并不是最好的解决方案，如果您有更好的解决方案，希望您能分享出来，或通过issues交流。
 
 ## 安装
