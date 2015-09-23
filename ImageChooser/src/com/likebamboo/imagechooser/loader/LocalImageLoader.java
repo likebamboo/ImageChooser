@@ -17,6 +17,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.util.LruCache;
 import android.text.TextUtils;
+import android.widget.ImageView;
 
 import com.likebamboo.imagechooser.ICApplication;
 import com.likebamboo.imagechooser.utils.DeviceUtil;
@@ -394,6 +395,36 @@ public class LocalImageLoader {
         }
     }
 
+
+    /**
+     * The default implementation of ImageListener which handles basic functionality
+     * of showing a default image until the network response is received, at which point
+     * it will switch to either the actual image or the error image.
+     * @param view The imageView that the listener is associated with.
+     * @param defaultImageResId Default image resource ID to use, or 0 if it doesn't exist.
+     * @param errorImageResId Error image resource ID to use, or 0 if it doesn't exist.
+     */
+    public static ImageCallBack getImageListener(final ImageView view, final Object tag, final int defaultImageResId,
+            final int errorImageResId) {
+        if (view != null) {
+            view.setImageResource(defaultImageResId);
+            view.setTag(tag);
+        }
+        return new ImageCallBack() {
+            @Override
+            public void onImageLoader(Bitmap bitmap, String path) {
+                if (view == null || !("" + path).equals(view.getTag())) {
+                    return;
+                }
+                if (bitmap != null) {
+                    view.setImageBitmap(bitmap);
+                } else {
+                    view.setImageResource(errorImageResId);
+                }
+            }
+        };
+    }
+    
     /**
      * 加载本地图片的回调接口
      */

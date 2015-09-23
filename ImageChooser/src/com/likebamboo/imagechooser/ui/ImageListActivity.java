@@ -83,7 +83,7 @@ public class ImageListActivity extends BaseActivity implements OnItemClickListen
      * @param datas
      */
     private void setAdapter(ArrayList<String> datas) {
-        mImageAdapter = new ImageListAdapter(this, datas, mImagesGv);
+        mImageAdapter = new ImageListAdapter(this, datas);
         mImagesGv.setAdapter(mImageAdapter);
         mImagesGv.setOnItemClickListener(this);
     }

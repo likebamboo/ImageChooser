@@ -16,11 +16,9 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
-import android.widget.ImageView;
 
 import com.likebamboo.imagechooser.R;
 import com.likebamboo.imagechooser.loader.LocalImageLoader;
-import com.likebamboo.imagechooser.loader.LocalImageLoader.ImageCallBack;
 import com.likebamboo.imagechooser.utils.Util;
 import com.likebamboo.imagechooser.widget.MyImageView;
 
@@ -47,16 +45,10 @@ public class ImageListAdapter extends BaseAdapter {
      */
     private ArrayList<String> mSelectedList = new ArrayList<String>();
 
-    /**
-     * 容器
-     */
-    private View mContainer = null;
-
-    public ImageListAdapter(Context context, ArrayList<String> list, View container) {
+    public ImageListAdapter(Context context, ArrayList<String> list) {
         mDataList = list;
         mContext = context;
         mSelectedList = Util.getSeletedImages(context);
-        mContainer = container;
     }
 
     @Override
@@ -97,15 +89,7 @@ public class ImageListAdapter extends BaseAdapter {
         // 加载图片
         // 利用NativeImageLoader类加载本地图片
         Bitmap bitmap = LocalImageLoader.getInstance().loadImage(path, holder.mImageIv.getPoint(),
-                new ImageCallBack() {
-                    @Override
-                    public void onImageLoader(Bitmap bitmap, String path) {
-                        ImageView mImageView = (ImageView)mContainer.findViewWithTag(path);
-                        if (bitmap != null && mImageView != null) {
-                            mImageView.setImageBitmap(bitmap);
-                        }
-                    }
-                });
+                LocalImageLoader.getImageListener(holder.mImageIv, path, R.drawable.pic_thumb, R.drawable.pic_thumb));
         if (bitmap != null) {
             holder.mImageIv.setImageBitmap(bitmap);
         } else {
